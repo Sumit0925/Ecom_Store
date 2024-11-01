@@ -16,13 +16,13 @@ const Header = () => {
     .logo {
       height: 5rem;
     }
+      
   `;
 
   return (
     <MainHeader>
       <NavLink to="/">
         <img className="logo" src="./images/My_Logo.svg" alt="my logo image" />
-
       </NavLink>
       <Navbar />
     </MainHeader>
