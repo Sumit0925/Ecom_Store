@@ -124,7 +124,7 @@ const Navbar = () => {
         opacity: 0;
         transform: translateX(100%);
         /* transform-origin: top; */
-        transition: all 3s linear;
+        // transition: all 3s linear;
       }
 
       .active .navbar-lists {

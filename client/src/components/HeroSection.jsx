@@ -11,8 +11,8 @@ const HeroSection = ({ myData }) => {
           <div className="hero-section-data">
             <p className="intro-data">
               Welcome to
-              <h1>{myData.name}</h1>
             </p>
+              <h1>{myData.name}</h1>
             <p>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit.
               Architecto similique ullam magni, deleniti neque doloribus cum

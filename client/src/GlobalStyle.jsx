@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Work Sans", sans-serif;
+  // font-family: "Work Sans", sans-serif;
 }
 
 
@@ -137,11 +137,12 @@ li {
     }
 
 input, textarea{
+    font-size: 1.5rem;
     max-width: 50rem;
     color: ${({ theme }) => theme.colors.black};
-    padding: 1.6rem 2.4rem;
+    padding: 1.2rem 2.2rem;
     border: 1px solid ${({ theme }) => theme.colors.border};
-    text-transform: uppercase;
+    // text-transform: uppercase;
    box-shadow: ${({ theme }) => theme.colors.shadowSupport};
 }
     input[type="submit"]{
