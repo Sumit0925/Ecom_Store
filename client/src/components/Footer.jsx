@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Button } from "../styles/Button";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
@@ -14,9 +14,9 @@ const Footer = () => {
             <h3>Talk to us Today</h3>
           </div>
           <div>
-            <Button>
-              <Link to="/contact">Get Started</Link>
-            </Button>
+            <Link to="/contact">
+              <Button>Get Started</Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -160,7 +160,7 @@ const Wrapper = styled.section`
     }
 
     footer {
-    //   padding: 9rem 0 9rem 0;
+      //   padding: 9rem 0 9rem 0;
       padding: 8rem 0 3rem 0;
     }
 
