@@ -8,17 +8,18 @@ import axios from "axios";
 //* Create a Context
 const AppContext = createContext();
 
-const API = "https://api.pujakaitem.com/api/products";
+const API = "https://ecomapi-production-d362.up.railway.app/api/products";
 
 //* Provider
 const AppProvider = ({ children }) => {
-  const getProducts = async (url) => {
-    const res = await axios.get(url);
-    console.log("🚀 ~ getProducts ~ res:", res);
+  const getProducts = async () => {
+    const res = await axios.get(API);
+    const products = await res.data;
+    console.log("🚀 ~ getProducts ~ products:", products);
   };
 
   useEffect(() => {
-    getProducts(API);
+    getProducts();
   }, []);
 
   return (
