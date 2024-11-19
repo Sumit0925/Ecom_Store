@@ -111,18 +111,18 @@ li {
   grid-template-columns: repeat(5, 1fr);
 }
 
-  .common-heading {
+.common-heading {
       font-size: 3.8rem;
       font-weight: 600;
       margin-bottom: 6rem;
       text-transform: capitalize;
-    }
+  }
 
-     .intro-data {
+ .intro-data {
       margin-bottom: 0;
       text-transform: uppercase;
       color: #5138ee;
-    }
+  }
 
    .caption {
       position: absolute;

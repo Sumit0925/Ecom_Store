@@ -3,7 +3,7 @@ import React from 'react'
 
 const SingleProduct = () => {
 
-  return <Wrapper></Wrapper>;
+  return <Wrapper>Single Product</Wrapper>;
 
 }
 
