@@ -3,22 +3,31 @@ import { useProductContext } from "../context/ProductContext";
 import Product from "./Product";
 
 const FeaturedProduct = () => {
-  const { isLoading,featuredProducts } = useProductContext();
-  console.log("🚀 ~ FeaturedProduct ~ featuredProducts:", featuredProducts)
+  const { isLoading, featuredProducts } = useProductContext();
+  console.log("🚀 ~ FeaturedProduct ~ featuredProducts:", featuredProducts);
 
-  // if (isLoading) {
-  //   return <div>....Loading</div>;
-  // }
+  if (isLoading) {
+    return <div>....Loading</div>;
+  }
+
+  if (!featuredProducts || !Array.isArray(featuredProducts)) {
+    return <div>Error: Unable to load featured products.</div>;
+  }
 
   return (
     <Wrapper className="section">
       <div className="container">
-        <div className="intro-data">Check Now!</div>
+        <p className="intro-data">Check Now!</p>
         <div className="common-heading">Our Feature Services</div>
         <div className="grid grid-three-column">
-          {/* {featuredProducts.map((curElem) => {
-            return <Product key={curElem.id} {...curElem}/>;
-          })} */}
+          {featuredProducts.map((curElem) => {
+            if (!curElem || typeof curElem !== "object") {
+              console.error("Invalid product:", curElem);
+              return null;
+            }
+
+            return <Product key={curElem.id} curElem={curElem} />;
+          })}
         </div>
       </div>
     </Wrapper>
@@ -121,6 +130,14 @@ const Wrapper = styled.section`
         color: rgb(98 84 243);
         font-size: 1.4rem;
       }
+    }
+  }
+
+  @media (max-width: ${({ theme }) => theme.media.mobile}) {
+    figure {
+
+      .caption {
+        right: 15%;
     }
   }
 `;

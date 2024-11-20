@@ -9,10 +9,8 @@ const HeroSection = ({ myData }) => {
       <div className="container">
         <div className="grid grid-two-column">
           <div className="hero-section-data">
-            <p className="intro-data">
-              Welcome to
-            </p>
-              <h1>{myData.name}</h1>
+            <p className="intro-data">Welcome to</p>
+            <h1>{myData.name}</h1>
             <p>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit.
               Architecto similique ullam magni, deleniti neque doloribus cum
@@ -89,6 +87,7 @@ const Wrapper = styled.section`
   }
 
   @media (max-width: ${({ theme }) => theme.media.mobile}) {
+    padding: 6rem 0;
 
     // .container {
     //   padding: 10px;
