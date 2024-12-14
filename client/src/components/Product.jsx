@@ -4,7 +4,7 @@ import FormatPrice from "../helpers/FormatPrice";
 
 const Product = ({curElem}) => {
     const { id, name, image, price, category } = curElem;
-    console.log("curElem",curElem)
+    // console.log("curElem",curElem);
   return (
     <Link to={`/singleproduct/${id}`}>
       <div className="card">

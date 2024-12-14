@@ -8,30 +8,46 @@ import reducer from "../reducer/productReducer";
 
 //* Create a Context
 const AppContext = createContext();
+
 const initialData = {
   isLoading: false,
   isError: false,
   products: [],
   featuredProducts: [],
+  isSingleLoading: false,
+  singleProduct: {},
 };
-
 
 //* Provider
 const AppProvider = ({ children }) => {
   const API = "https://ecomapi-production-d362.up.railway.app/api/products";
-  
+
   const [state, dispatch] = useReducer(reducer, initialData);
 
   const getProducts = async () => {
-    dispatch({ type: "SET_ LOADING" });
+    dispatch({ type: "SET_LOADING" });
     try {
       const res = await axios.get(API);
       const products = await res.data.products;
-      console.log("🚀 ~ getProducts ~ products:", products)
+      // console.log("🚀 ~ getProducts ~ products:", products);
       dispatch({ type: "SET_API_DATA", payload: products });
     } catch (error) {
       dispatch({ type: "API_ERROR" });
       console.log("getProducts errror", error);
+    }
+  };
+
+  //* Second API Call for Single Product
+
+  const getSingleProduct = async () => {
+    dispatch({ type: "SET_SINGLE_LOADING" });
+    try {
+      const res = await axios.get(API);
+      const singleProduct = await res.data.singleProduct;
+      dispatch({ type: "SET_SINGLE_PRODUCT", payload: singleProduct });
+    } catch (error) {
+      dispatch({ type: "SINGLE_API_ERROR" });
+      console.log("singleProduct Error", error);
     }
   };
 
@@ -40,13 +56,12 @@ const AppProvider = ({ children }) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ ...state }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ ...state,getSingleProduct }}>{children}</AppContext.Provider>
   );
 };
 
 //* Creating Consumer using Custom Hook => UseContext Hook
 const useProductContext = () => {
-
   const appContextValue = useContext(AppContext);
 
   if (!appContextValue) {
