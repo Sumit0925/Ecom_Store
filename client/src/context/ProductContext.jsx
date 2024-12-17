@@ -39,11 +39,12 @@ const AppProvider = ({ children }) => {
 
   //* Second API Call for Single Product
 
-  const getSingleProduct = async () => {
+  const getSingleProduct = async (API) => {
     dispatch({ type: "SET_SINGLE_LOADING" });
     try {
       const res = await axios.get(API);
       const singleProduct = await res.data.singleProduct;
+      // console.log("🚀 ~ getSingleProduct ~ singleProduct:", singleProduct);
       dispatch({ type: "SET_SINGLE_PRODUCT", payload: singleProduct });
     } catch (error) {
       dispatch({ type: "SINGLE_API_ERROR" });
@@ -56,7 +57,9 @@ const AppProvider = ({ children }) => {
   }, []);
 
   return (
-    <AppContext.Provider value={{ ...state,getSingleProduct }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ ...state, API, getSingleProduct }}>
+      {children}
+    </AppContext.Provider>
   );
 };
 

@@ -85,8 +85,10 @@ li {
 { /* resuable code section  */}
 
 .container {
-  max-width: 120rem;
+  // max-width: 120rem;
   margin: 0 auto;
+  max-width: 126.4rem;
+  padding: 0 3.2rem;
 }
 
 .grid {

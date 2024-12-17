@@ -7,7 +7,7 @@ const FeaturedProduct = () => {
   // console.log("🚀 ~ FeaturedProduct ~ featuredProducts:", featuredProducts);
 
   if (isLoading) {
-    return <div>....Loading</div>;
+    return <div className="page_loading">....Loading</div>;
   }
 
   if (!featuredProducts || !Array.isArray(featuredProducts)) {
@@ -38,9 +38,9 @@ const Wrapper = styled.section`
   padding: 9rem 0;
   background-color: ${({ theme }) => theme.colors.bg};
 
-  .container {
-    max-width: 120rem;
-  }
+  // .container {
+  //   max-width: 120rem;
+  // }
 
   figure {
     width: auto;
@@ -70,6 +70,7 @@ const Wrapper = styled.section`
     img {
       max-width: 90%;
       margin-top: 1.5rem;
+      object-fit: cover;
       height: 20rem;
       transition: all 0.2s linear;
     }
