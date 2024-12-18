@@ -34,13 +34,13 @@ const SingleProduct = () => {
   if (isSingleLoading) {
     return <div className="page_loading">.....Loading</div>;
   }
-
+  console.log(singleProduct)
   return (
     <Wrapper>
       <PageNavigation title={name} />
       <Container className="container">
         <div className="grid grid-two-column">
-          <div className="product_images">
+          <div className="product-images">
             {/* product Images */}
             <MyImage imgs={image} />
           </div>
@@ -113,6 +113,7 @@ const Wrapper = styled.section`
     max-width: 120rem;
     padding: 9rem 0;
   }
+    
   .product-data {
     display: flex;
     flex-direction: column;

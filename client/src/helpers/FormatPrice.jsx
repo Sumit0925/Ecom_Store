@@ -1,6 +1,6 @@
 const FormatPrice = ({ price }) => {
   if (!price) {
-    return <p>Loading</p>;
+    return <>...Loading</>;
   }
   return Intl.NumberFormat("en-IN", {
     style: "currency",
