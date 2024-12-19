@@ -107,6 +107,12 @@ const Wrapper = styled.section`
     background-color: #fff;
     color: #5138ee;
   }
+
+    @media (max-width: ${({ theme }) => theme.media.tab}) {
+    .grid {
+      gap:2rem;
+    }
+  }
 `;
 
 export default Services;

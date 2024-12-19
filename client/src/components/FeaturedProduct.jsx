@@ -134,6 +134,11 @@ const Wrapper = styled.section`
     }
   }
 
+  @media (max-width: ${({ theme }) => theme.media.tab}) {
+    .grid {
+      gap:2rem;
+    }
+  }
   @media (max-width: ${({ theme }) => theme.media.mobile}) {
     figure {
 

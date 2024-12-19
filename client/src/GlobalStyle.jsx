@@ -168,7 +168,12 @@ input, textarea{
   }
 
    @media (max-width: ${({ theme }) => theme.media.mobile}) {
-       html {
+   
+   .container{
+   padding: 0 2.4rem;
+   }
+   
+   html {
       font-size: 50%;
     }
 
