@@ -1,10 +1,24 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { TiTick } from "react-icons/ti";
+import CartAmountToggle from "./CartAmountToggle";
+import { Link } from "react-router-dom";
+import { Button } from "../styles/Button";
 
 const AddToCart = ({ product }) => {
   const { id, colors, stock } = product;
   const [color, setColor] = useState(colors[0]);
+
+  const [amount, setAmount] = useState(1);
+
+  const setDecrease = () => {
+    amount > 1 ? setAmount(amount - 1) : setAmount(1);
+  };
+
+  const setIncrease = () => {
+    stock > amount ? setAmount(amount + 1) : setAmount(stock);
+  };
+
   return (
     <Wrapper>
       <div className="colors">
@@ -24,6 +38,17 @@ const AddToCart = ({ product }) => {
           })}
         </p>
       </div>
+
+      {/* Add to Car */}
+      <CartAmountToggle
+        amount={amount}
+        setDecrease={setDecrease}
+        setIncrease={setIncrease}
+      />
+
+      <Link to={"/cart"}>
+        <Button className="btn">Add to Cart</Button>
+      </Link>
     </Wrapper>
   );
 };

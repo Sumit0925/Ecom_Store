@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useProductContext } from "../context/ProductContext";
 
-const MyImage = ({ imgs = [ {url : ""}] }) => {
+const MyImage = ({ imgs = [{ url: "" }] }) => {
   if (!imgs || !Array.isArray(imgs)) {
     return <div>Error: Unable to load featured products.</div>;
   }
@@ -24,7 +24,7 @@ const MyImage = ({ imgs = [ {url : ""}] }) => {
                 src={curElem.url}
                 alt={curElem.filename}
                 className="box-image--style"
-                onClick={()=>setMainImage(curElem)}
+                onClick={() => setMainImage(curElem)}
               />
             </figure>
           );
@@ -82,10 +82,33 @@ const Wrapper = styled.section`
     flex-direction: column;
     order: 1;
 
+  .grid {
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+    /* order: 2; */
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      background-size:cover;
+      object-fit: fill;
+      cursor: pointer;
+      box-shadow: ${({ theme }) => theme.colors.shadow};
+    }
+  }
+
     .grid-four-column {
       grid-template-rows: 1fr;
       grid-template-columns: repeat(4, 1fr);
       //  order: 2;
+    }
+
+    .box-image--style {
+      width: 20rem;
+      height: 16vw;
     }
   }
 `;
