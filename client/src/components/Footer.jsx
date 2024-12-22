@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Button } from "../styles/Button";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
@@ -88,6 +88,7 @@ const Footer = () => {
 };
 
 const Wrapper = styled.section`
+  margin-top: -3rem;
   .iSIFGq {
     margin: 0;
   }
@@ -144,6 +145,12 @@ const Wrapper = styled.section`
       margin-bottom: 2rem;
       color: ${({ theme }) => theme.colors.hr};
       height: 0.1px;
+    }
+  }
+
+    @media (max-width: ${({ theme }) => theme.media.tab}) {
+    .contact-short {
+      padding: 2rem 5rem;
     }
   }
 
