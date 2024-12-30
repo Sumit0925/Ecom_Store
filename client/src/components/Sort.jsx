@@ -4,11 +4,12 @@ import { BsFillGridFill, BsList } from "react-icons/bs";
 import { useFilterContext } from "../context/FilterContext";
 
 const Sort = () => {
-  const { filter_products, grid_view, setGridView, setListView } =
+  const { filter_products, grid_view, setGridView, setListView, sorting } =
     useFilterContext();
 
   return (
     <Wrapper className="sort-section">
+      {/* first Column */}
       <div className="sorting-list--grid">
         <button
           className={grid_view ? "sort-btn active" : "sort-btn"}
@@ -27,12 +28,38 @@ const Sort = () => {
         </button>
       </div>
 
+      {/* second Column  */}
       <div className="product-data">
         <p>{filter_products.length} Products Available</p>
       </div>
 
+      {/* third Column  */}
       <div className="sort-selection">
-        <p>Dropdown</p>
+        <form action="#">
+          <label htmlFor="sort"></label>
+          <select
+            name="sort"
+            id="sort"
+            className="sort-selection--style"
+            onClick={sorting}
+          >
+            <option value="featured" className="sort-select--option">
+              Featured
+            </option>
+            <option value="lowest" className="sort-select--option">
+              Price(lowest)
+            </option>
+            <option value="highest" className="sort-select--option">
+              Price(highest)
+            </option>
+            <option value="a-z" className="sort-select--option">
+              Price(a-z)
+            </option>
+            <option value="z-a" className="sort-select--option">
+              Price(z-a)
+            </option>
+          </select>
+        </form>
       </div>
     </Wrapper>
   );
@@ -69,11 +96,12 @@ const Wrapper = styled.section`
   .sort-selection .sort-selection--style {
     padding: 0.5rem;
     cursor: pointer;
-
+    // outline:none;
+    // border:none;
     .sort-select--option {
       padding: 0.5rem 0;
       cursor: pointer;
-      height: 2rem;
+      font-size: 1.4rem;
       padding: 10px;
     }
   }

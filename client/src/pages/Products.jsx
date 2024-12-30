@@ -7,7 +7,7 @@ import { useFilterContext } from "../context/FilterContext";
 
 const Products = () => {
   const { filter_products } = useFilterContext();
-  console.log("filter_products", filter_products);
+  // console.log("filter_products", filter_products);
 
   return (
     <Wrapper>
