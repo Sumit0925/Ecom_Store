@@ -27,8 +27,9 @@ const FilterContextProvider = ({ children }) => {
   };
 
   //* sorting function
-  const sorting = () => {
-    dispatch({ type: "GET_SORT_VALUE" });
+  const sorting = (event) => {
+    let sortValue = event.target.value;
+    dispatch({ type: "GET_SORT_VALUE",payload:sortValue });
   };
 
   //* to sort the products

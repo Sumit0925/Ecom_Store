@@ -20,45 +20,77 @@ const filterReducer = (state, action) => {
       };
 
     case "GET_SORT_VALUE":
-      let userSortValue = document.getElementById("sort");
-      let sortValue = userSortValue.options[userSortValue.selectedIndex].value;
+      // let userSortValue = document.getElementById("sort");
+      // let sortValue = userSortValue.options[userSortValue.selectedIndex].value;
 
       return {
         ...state,
-        sorting_value: sortValue,
+        sorting_value: action.payload,
       };
 
     case "SORTING_PRODUCTS":
       let SortedProducts;
-      let tempSortedProducts = [...action.payload];
 
-      if (state.sorting_value === "featured") {
-        SortedProducts = tempSortedProducts;
-      }
+      //* Lengthly way
 
-      if (state.sorting_value === "lowest") {
-        const priceSorting = (a, b) => {
+      // let tempSortedProducts = [...action.payload];
+
+      // if (state.sorting_value === "featured") {
+      //   SortedProducts = tempSortedProducts;
+      // }
+
+      // if (state.sorting_value === "lowest") {
+      //   const priceSorting = (a, b) => {
+      //     return a.price - b.price;
+      //   };
+      //   SortedProducts = tempSortedProducts.sort(priceSorting);
+      // }
+
+      // if (state.sorting_value === "highest") {
+      //   const priceSorting = (a, b) => {
+      //     return b.price - a.price;
+      //   };
+      //   SortedProducts = tempSortedProducts.sort(priceSorting);
+      // }
+
+      // if (state.sorting_value === "a-z") {
+      //   SortedProducts = tempSortedProducts.sort((a, b) =>
+      //     a.name.localeCompare(b.name)
+      //   );
+      // }
+      // if (state.sorting_value === "z-a") {
+      //   SortedProducts = tempSortedProducts.sort((a, b) =>
+      //     b.name.localeCompare(a.name)
+      //   );
+      // }
+
+      //* Short way to do the above code
+
+      const { filter_products, sorting_value } = state;
+      let tempSortedProducts = [...filter_products];
+
+      const productSorting = (a, b) => {
+        if (sorting_value === "lowest") {
           return a.price - b.price;
-        };
-        SortedProducts = tempSortedProducts.sort(priceSorting);
-      }
+        }
 
-      if (state.sorting_value === "highest") {
-        const priceSorting = (a, b) => {
+        if (sorting_value === "highest") {
           return b.price - a.price;
-        };
-        SortedProducts = tempSortedProducts.sort(priceSorting);
-      }
+        }
 
-      if (state.sorting_value === "a-z") {
-        SortedProducts = tempSortedProducts.sort((a, b) =>
-          a.name.localeCompare(b.name)
-        );
-      }
-      if (state.sorting_value === "z-a") {
-        SortedProducts = tempSortedProducts.sort((a, b) =>
-          b.name.localeCompare(a.name)
-        );
+        if (sorting_value === "a-z") {
+          return a.name.localeCompare(b.name);
+        }
+
+        if (sorting_value === "z-a") {
+          return b.name.localeCompare(a.name);
+        }
+      };
+
+      SortedProducts = tempSortedProducts.sort(productSorting);
+
+      if (sorting_value === "featured") {
+        SortedProducts = [...action.payload];
       }
 
       return {
