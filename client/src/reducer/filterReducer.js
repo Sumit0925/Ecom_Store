@@ -90,12 +90,40 @@ const filterReducer = (state, action) => {
       SortedProducts = tempSortedProducts.sort(productSorting);
 
       if (sorting_value === "featured") {
-        SortedProducts = [...action.payload];
+        SortedProducts = [...filter_products];
       }
 
       return {
         ...state,
         filter_products: SortedProducts,
+      };
+
+    case "UPDATE_FILTERS_VALUES":
+      let { name, value } = action.payload;
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          [name]: value,
+        },
+      };
+
+    case "FILTER_PRODUCTS":
+      const { all_products } = state;
+      const { text } = state.filters;
+      // console.log("🚀 ~ filterReducer ~ text:", text);
+
+      let tempfilterdProducts = [...all_products];
+      if (text) {
+        tempfilterdProducts = tempfilterdProducts.filter((curElem) => {
+          return curElem.name.toLowerCase().includes(text.toLowerCase());
+        });
+      }
+      // console.log("🚀 ~ tempfilterdProducts=tempfilterdProducts.filter ~ tempfilterdProducts:", tempfilterdProducts);
+
+      return {
+        ...state,
+        filter_products: tempfilterdProducts,
       };
 
     default:
