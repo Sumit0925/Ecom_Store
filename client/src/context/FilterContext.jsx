@@ -11,6 +11,8 @@ const initialState = {
   sorting_value: "featured",
   filters: {
     text: "",
+    category: "all",
+    company: "all",
   },
 };
 

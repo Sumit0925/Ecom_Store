@@ -110,16 +110,31 @@ const filterReducer = (state, action) => {
 
     case "FILTER_PRODUCTS":
       const { all_products } = state;
-      const { text } = state.filters;
-      // console.log("🚀 ~ filterReducer ~ text:", text);
-
+      const { text, category, company } = state.filters;
       let tempfilterdProducts = [...all_products];
+
       if (text) {
         tempfilterdProducts = tempfilterdProducts.filter((curElem) => {
           return curElem.name.toLowerCase().includes(text.toLowerCase());
         });
       }
-      // console.log("🚀 ~ tempfilterdProducts=tempfilterdProducts.filter ~ tempfilterdProducts:", tempfilterdProducts);
+      if (category !== "all") {
+        tempfilterdProducts = tempfilterdProducts.filter((curElem) => {
+          // if (category == "all") {
+          //   return [...all_products];
+          // }
+          return curElem.category === category;
+        });
+      }
+
+      if (company !== "all") {
+        tempfilterdProducts = tempfilterdProducts.filter((curElem) => {
+          // if (company == "all") {
+          //   return tempfilterdProducts;
+          // }
+          return curElem.company.toLowerCase() === company.toLowerCase();
+        });
+      }
 
       return {
         ...state,

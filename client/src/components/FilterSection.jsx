@@ -4,9 +4,29 @@ import { useFilterContext } from "../context/FilterContext";
 
 const FilterSection = () => {
   const {
-    filters: { text },
+    filters: { text, category, company },
     updateFilterValue,
+    all_products,
   } = useFilterContext();
+
+  //* TO GET UNIQUE DATA OF EACH FIELDS
+  const getUniqueData = (data, property) => {
+    let newData = data.map((curElem) => {
+      return curElem[property];
+    });
+    // console.log("🚀 ~ newData ~ curElem:", newData);
+    //! using sets to get unique data
+    newData = ["all", ...new Set(newData)];
+    // console.log("🚀 ~ getUniqueData ~ newData:", newData);
+
+    return newData;
+  };
+
+  //* CATEGORY Unique Data
+  const categoryData = getUniqueData(all_products, "category");
+
+  //* COMPANY Unique Data
+  const companyData = getUniqueData(all_products, "company");
 
   return (
     <Wrapper>
@@ -15,10 +35,50 @@ const FilterSection = () => {
           <input
             type="text"
             name="text"
-            placeholder="Search"
+            placeholder="SEARCH"
             value={text}
             onChange={updateFilterValue}
           />
+        </form>
+      </div>
+
+      <div className="filter-category">
+        <h3>Category</h3>
+        <div>
+          {categoryData.map((curElem, index) => {
+            return (
+              <button
+                key={index}
+                name="category"
+                type="button"
+                value={curElem}
+                onClick={updateFilterValue}
+                className={category === curElem ? "active" : null}
+              >
+                {curElem}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="filter-company">
+        <h3>Company</h3>
+        <form action="#">
+          <select
+            name="company"
+            id="company"
+            className="filter-company--select"
+            onClick={updateFilterValue}
+          >
+            {companyData.map((curElem, index) => {
+              return (
+                <option key={index} name="company" value={curElem}>
+                  {curElem}
+                </option>
+              );
+            })}
+          </select>
         </form>
       </div>
     </Wrapper>
