@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import { useFilterContext } from "../context/FilterContext";
+import { TiTick } from "react-icons/ti";
+import { FaCheck } from "react-icons/fa";
 
 const FilterSection = () => {
   const {
-    filters: { text, category, company },
+    filters: { text, category, color },
     updateFilterValue,
     all_products,
   } = useFilterContext();
@@ -15,6 +17,13 @@ const FilterSection = () => {
       return curElem[property];
     });
     // console.log("🚀 ~ newData ~ curElem:", newData);
+
+    if (property === "colors") {
+      // newData = ["all", ...new Set([].concat(...newData))];
+      //~to merge colors array;
+      newData = newData.flat();
+    }
+
     //! using sets to get unique data
     newData = ["all", ...new Set(newData)];
     // console.log("🚀 ~ getUniqueData ~ newData:", newData);
@@ -27,6 +36,9 @@ const FilterSection = () => {
 
   //* COMPANY Unique Data
   const companyData = getUniqueData(all_products, "company");
+
+  //* COLORS Unique Data
+  const colorsData = getUniqueData(all_products, "colors");
 
   return (
     <Wrapper>
@@ -44,6 +56,7 @@ const FilterSection = () => {
 
       <div className="filter-category">
         <h3>Category</h3>
+
         <div>
           {categoryData.map((curElem, index) => {
             return (
@@ -64,6 +77,7 @@ const FilterSection = () => {
 
       <div className="filter-company">
         <h3>Company</h3>
+
         <form action="#">
           <select
             name="company"
@@ -80,6 +94,50 @@ const FilterSection = () => {
             })}
           </select>
         </form>
+      </div>
+
+      <div className="filter-colors colors">
+        <h3>Colors</h3>
+
+        <div className="filter-color-style">
+          {colorsData.map((curColor, index) => {
+            if (curColor === "all") {
+              return (
+                <button
+                  key={index}
+                  type="button"
+                  className={
+                    curColor === color
+                      ? "color-all--style color-all--active"
+                      : "color-all--style"
+                  }
+                  name="color"
+                  value={curColor}
+                  onClick={updateFilterValue}
+                >
+                  all
+                </button>
+              );
+            }
+            return (
+              <button
+                key={index}
+                type="button"
+                style={{ backgroundColor: curColor }}
+                className={curColor === color ? "btnStyle active" : "btnStyle"}
+                name="color"
+                value={curColor}
+                onClick={updateFilterValue}
+              >
+                {color === curColor ? (
+                  curColor === "all" ? null : (
+                    <FaCheck className="checkStyle" />
+                  )
+                ) : null}
+              </button>
+            );
+          })}
+        </div>
       </div>
     </Wrapper>
   );
@@ -137,7 +195,9 @@ const Wrapper = styled.section`
 
   .filter-color-style {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: center;
   }
 
   .color-all--style {
@@ -145,13 +205,21 @@ const Wrapper = styled.section`
     text-transform: capitalize;
     border: none;
     cursor: pointer;
+    margin-right: 0.8rem;
+  }
+
+  .color-all--active {
+    border-bottom: 1px solid #000;
+    color: ${({ theme }) => theme.colors.btn};
   }
   .btnStyle {
     width: 2rem;
     height: 2rem;
     background-color: #000;
     border-radius: 50%;
-    margin-left: 1rem;
+    // margin-right: 0.8rem;
+    // margin-bottom: 0.8rem;
+    margin: 0.4rem 0.8rem 0.4rem 0;
     border: none;
     outline: none;
     opacity: 0.5;
@@ -167,7 +235,7 @@ const Wrapper = styled.section`
   }
 
   .checkStyle {
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: #fff;
   }
 
