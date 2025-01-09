@@ -1,10 +1,27 @@
 const filterReducer = (state, action) => {
   switch (action.type) {
     case "LOAD_FILTER_PRODUCTS":
+      let priceArr = action.payload.map((curElem) => curElem.price);
+      // console.log("🚀 ~ filterReducer ~ priceArr:", priceArr);
+
+      let maxPrice = 0;
+
+      //* First Way -> using spread operator to unpack the elements of an array and using them in max() method
+
+      // maxPrice = Math.max(...priceArr);
+      // console.log("🚀 ~ filterReducer ~ maxPrice:", maxPrice);
+
+      //* 2nd Way -> using reduce method;
+      maxPrice = priceArr.reduce((acc, curElem) => {
+        return Math.max(acc, curElem);
+      }, 0);
+      // console.log("🚀 ~ maxPrice=priceArr.reduce ~ maxPrice:", maxPrice);
+
       return {
         ...state,
         filter_products: [...action.payload],
         all_products: [...action.payload],
+        filters: { ...state.filters, maxPrice: maxPrice, price: maxPrice },
       };
 
     case "SET_GRID_VIEW":
@@ -108,9 +125,21 @@ const filterReducer = (state, action) => {
         },
       };
 
+    case "SET_PRICE_CHANGE":
+      let checkedValue = action.payload;
+      // console.log("Checked Value", checkedValue);
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          priceChange: checkedValue,
+        },
+      };
+
     case "FILTER_PRODUCTS":
       const { all_products } = state;
-      const { text, category, company, color } = state.filters;
+      const { text, category, company, color, price, priceChange } =
+        state.filters;
       let tempfilterdProducts = [...all_products];
 
       if (text) {
@@ -141,6 +170,20 @@ const filterReducer = (state, action) => {
         tempfilterdProducts = tempfilterdProducts.filter((curElem) => {
           return curElem.colors.includes(color);
         });
+      }
+
+      if (priceChange) {
+        if (price === 0) {
+          tempfilterdProducts = tempfilterdProducts.filter((curElem) => {
+            return curElem.price == price;
+          });
+        } else {
+          tempfilterdProducts = tempfilterdProducts.filter((curElem) => {
+            return curElem.price <= price;
+          });
+        }
+      } else {
+        tempfilterdProducts = tempfilterdProducts;
       }
 
       return {

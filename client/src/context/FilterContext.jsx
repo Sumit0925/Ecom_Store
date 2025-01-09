@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import { useProductContext } from "./ProductContext";
 import reducer from "../reducer/filterReducer";
 
@@ -14,6 +20,10 @@ const initialState = {
     category: "all",
     company: "all",
     color: "all",
+    maxPrice: 0,
+    price: 0,
+    minPrice: 0,
+    priceChange: false,
   },
 };
 
@@ -48,6 +58,14 @@ const FilterContextProvider = ({ children }) => {
     });
   };
 
+  // const [priceChange, setPriceChange] = useState(false);
+  //* For changing Price Filter
+  const changePrice = (e) => {
+    const value = e.target.checked;
+    return dispatch({ type: "SET_PRICE_CHANGE", payload: value });
+    // console.log(value);
+  };
+
   //* to sort the products
   useEffect(() => {
     dispatch({ type: "FILTER_PRODUCTS" });
@@ -60,7 +78,14 @@ const FilterContextProvider = ({ children }) => {
 
   return (
     <FilterContext.Provider
-      value={{ ...state, setGridView, setListView, sorting, updateFilterValue }}
+      value={{
+        ...state,
+        setGridView,
+        setListView,
+        sorting,
+        updateFilterValue,
+        changePrice,
+      }}
     >
       {children}
     </FilterContext.Provider>

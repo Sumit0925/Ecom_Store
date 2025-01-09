@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useFilterContext } from "../context/FilterContext";
 import { TiTick } from "react-icons/ti";
 import { FaCheck } from "react-icons/fa";
+import FormatPrice from "../helpers/FormatPrice";
 
 const FilterSection = () => {
   const {
-    filters: { text, category, color },
+    filters: { text, category, color, price, maxPrice, minPrice },
     updateFilterValue,
     all_products,
+    changePrice,
+    priceChange,
   } = useFilterContext();
 
   //* TO GET UNIQUE DATA OF EACH FIELDS
@@ -39,6 +42,15 @@ const FilterSection = () => {
 
   //* COLORS Unique Data
   const colorsData = getUniqueData(all_products, "colors");
+
+  // const [priceChange, setPriceChange] = useState(false);
+
+  // const changePrice = (e) => {
+  //   const value = e.target.checked;
+  //   value ? setPriceChange(value) : setPriceChange(false);
+  //   console.log(value);
+  // };
+  // console.log(priceChange);
 
   return (
     <Wrapper>
@@ -138,6 +150,31 @@ const FilterSection = () => {
             );
           })}
         </div>
+      </div>
+
+      <div className="filter_price">
+        <div className="price-display--style">
+          <h3>Price</h3>
+          <input
+            type="checkbox"
+            name="forPrice"
+            value={true}
+            onClick={changePrice}
+          />
+        </div>
+
+        <p>
+          <FormatPrice price={price} />
+        </p>
+        <input
+          type="range"
+          name="price"
+          min={minPrice}
+          max={maxPrice}
+          value={price}
+          onChange={updateFilterValue}
+          // onChange={priceChange ? updateFilterValue : null}
+        />
       </div>
     </Wrapper>
   );
@@ -240,6 +277,23 @@ const Wrapper = styled.section`
   }
 
   .filter_price {
+    .price-display--style {
+      padding: 2rem 0;
+      display: flex;
+      // justify-content:space-between;
+      // align-items: center;
+      gap: 3rem;
+    }
+
+    .price-display--style > h3 {
+      padding: 0;
+    }
+    .price-display--style > input {
+      margin: 0;
+      margin-top: 0.1rem;
+      // padding-top:0.5rem;
+      // font-size:20rem;
+    }
     input {
       margin: 0.5rem 0 1rem 0;
       padding: 0;
