@@ -4,14 +4,15 @@ import { useFilterContext } from "../context/FilterContext";
 import { TiTick } from "react-icons/ti";
 import { FaCheck } from "react-icons/fa";
 import FormatPrice from "../helpers/FormatPrice";
+import { Button } from "../styles/Button";
 
 const FilterSection = () => {
   const {
-    filters: { text, category, color, price, maxPrice, minPrice },
+    filters: { text, category, color, price, maxPrice, minPrice, priceChange },
     updateFilterValue,
     all_products,
     changePrice,
-    priceChange,
+    clearFilterValue,
   } = useFilterContext();
 
   //* TO GET UNIQUE DATA OF EACH FIELDS
@@ -154,13 +155,14 @@ const FilterSection = () => {
 
       <div className="filter_price">
         <div className="price-display--style">
-          <h3>Price</h3>
           <input
             type="checkbox"
             name="forPrice"
-            value={true}
+            id="priceChange"
+            checked={priceChange}
             onClick={changePrice}
           />
+          <h3>Price</h3>
         </div>
 
         <p>
@@ -175,6 +177,12 @@ const FilterSection = () => {
           onChange={updateFilterValue}
           // onChange={priceChange ? updateFilterValue : null}
         />
+      </div>
+
+      <div className="filter-clear">
+        <Button className="btn" onClick={clearFilterValue}>
+          Clear Filter
+        </Button>
       </div>
     </Wrapper>
   );
@@ -282,7 +290,8 @@ const Wrapper = styled.section`
       display: flex;
       // justify-content:space-between;
       // align-items: center;
-      gap: 3rem;
+      // gap: 3rem;
+      gap: 1rem;
     }
 
     .price-display--style > h3 {
@@ -290,7 +299,7 @@ const Wrapper = styled.section`
     }
     .price-display--style > input {
       margin: 0;
-      margin-top: 0.1rem;
+      // margin-top: 0.1rem;
       // padding-top:0.5rem;
       // font-size:20rem;
     }

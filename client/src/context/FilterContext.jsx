@@ -61,9 +61,14 @@ const FilterContextProvider = ({ children }) => {
   // const [priceChange, setPriceChange] = useState(false);
   //* For changing Price Filter
   const changePrice = (e) => {
-    const value = e.target.checked;
+    let value = e.target.checked;
     return dispatch({ type: "SET_PRICE_CHANGE", payload: value });
     // console.log(value);
+  };
+
+  //* To Clear the filter
+  const clearFilterValue = () => {
+    return dispatch({ type: "CLEAR_FILTERS_VALUES" });
   };
 
   //* to sort the products
@@ -76,6 +81,11 @@ const FilterContextProvider = ({ children }) => {
     dispatch({ type: "LOAD_FILTER_PRODUCTS", payload: products });
   }, [products]);
 
+  // if (state.filters.priceChange) {
+  //   document.getElementById("priceChange").checked = true;
+  // }
+  // console.log(state.filters.priceChange)
+
   return (
     <FilterContext.Provider
       value={{
@@ -85,6 +95,7 @@ const FilterContextProvider = ({ children }) => {
         sorting,
         updateFilterValue,
         changePrice,
+        clearFilterValue
       }}
     >
       {children}

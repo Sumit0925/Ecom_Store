@@ -2,20 +2,15 @@ const filterReducer = (state, action) => {
   switch (action.type) {
     case "LOAD_FILTER_PRODUCTS":
       let priceArr = action.payload.map((curElem) => curElem.price);
-      // console.log("🚀 ~ filterReducer ~ priceArr:", priceArr);
-
       let maxPrice = 0;
 
       //* First Way -> using spread operator to unpack the elements of an array and using them in max() method
 
       // maxPrice = Math.max(...priceArr);
-      // console.log("🚀 ~ filterReducer ~ maxPrice:", maxPrice);
-
       //* 2nd Way -> using reduce method;
       maxPrice = priceArr.reduce((acc, curElem) => {
         return Math.max(acc, curElem);
       }, 0);
-      // console.log("🚀 ~ maxPrice=priceArr.reduce ~ maxPrice:", maxPrice);
 
       return {
         ...state,
@@ -128,6 +123,7 @@ const filterReducer = (state, action) => {
     case "SET_PRICE_CHANGE":
       let checkedValue = action.payload;
       // console.log("Checked Value", checkedValue);
+
       return {
         ...state,
         filters: {
@@ -189,6 +185,23 @@ const filterReducer = (state, action) => {
       return {
         ...state,
         filter_products: tempfilterdProducts,
+      };
+
+    case "CLEAR_FILTERS_VALUES":
+      document.getElementById("priceChange").checked = false;
+
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          text: "",
+          category: "all",
+          company: "all",
+          color: "all",
+          maxPrice: state.filters.maxPrice,
+          price: state.filters.maxPrice,
+          priceChange: false,
+        },
       };
 
     default:
