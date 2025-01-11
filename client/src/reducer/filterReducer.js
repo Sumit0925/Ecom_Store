@@ -188,7 +188,7 @@ const filterReducer = (state, action) => {
       };
 
     case "CLEAR_FILTERS_VALUES":
-      document.getElementById("priceChange").checked = false;
+      // document.getElementById("priceChange").checked = false;
 
       return {
         ...state,

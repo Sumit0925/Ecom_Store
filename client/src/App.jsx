@@ -23,6 +23,8 @@ const App = () => {
       helper: "#8490ff",
 
       bg: "#F6F8FA",
+      // bg2: "#E8EAED",
+      bg2: "#F2F4F7",
       footer_bg: "#0a1435",
       btn: "rgb(98 84 243)",
       border: "rgba(98,84,243,0.5)",

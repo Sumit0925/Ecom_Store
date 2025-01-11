@@ -4,8 +4,10 @@ import { TiTick } from "react-icons/ti";
 import CartAmountToggle from "./CartAmountToggle";
 import { Link } from "react-router-dom";
 import { Button } from "../styles/Button";
+import { useCartContext } from "../context/cartContext";
 
 const AddToCart = ({ product }) => {
+  const { addToCart } = useCartContext();
   const { id, colors, stock } = product;
   const [color, setColor] = useState(colors[0]);
 
@@ -46,7 +48,7 @@ const AddToCart = ({ product }) => {
         setIncrease={setIncrease}
       />
 
-      <Link to={"/cart"}>
+      <Link to={"/cart"} onClick={() => addToCart(id, color, amount, product)}>
         <Button className="btn">Add to Cart</Button>
       </Link>
     </Wrapper>

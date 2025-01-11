@@ -160,7 +160,7 @@ const FilterSection = () => {
             name="forPrice"
             id="priceChange"
             checked={priceChange}
-            onClick={changePrice}
+            onChange={changePrice}
           />
           <h3>Price</h3>
         </div>
