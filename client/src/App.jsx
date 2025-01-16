@@ -12,6 +12,7 @@ import { ThemeProvider } from "styled-components";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
+import GoToTop from "./components/GoToTop";
 
 const App = () => {
   const theme = {
@@ -46,7 +47,7 @@ const App = () => {
       <ThemeProvider theme={theme}>
         <Router>
           <GlobalStyle />
-          <Header/>
+          <Header />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -56,7 +57,8 @@ const App = () => {
             <Route path="/cart" element={<Cart />} />
             <Route path="*" element={<ErrorPage />} />
           </Routes>
-          <Footer/>
+          <GoToTop />
+          <Footer />
         </Router>
       </ThemeProvider>
     </>
