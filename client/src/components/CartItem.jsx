@@ -6,7 +6,7 @@ import { useCartContext } from "../context/cartContext";
 
 const CartItem = ({ curElem }) => {
   const { id, name, image, color, price, amount } = curElem;
-  const { removeItem,setIncrease,setDecrease } = useCartContext();
+  const { removeItem, setIncrease, setDecrease } = useCartContext();
 
   return (
     <div className="cart-heading grid grid-five-column">

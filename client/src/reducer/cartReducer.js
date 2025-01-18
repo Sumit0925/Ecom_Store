@@ -87,24 +87,25 @@ const cartReducer = (state, action) => {
     };
   }
 
-  if (action.type === "CART_TOTAL_ITEM") {
-    let cartTotalItem = state.cart.reduce((acc, curItem) => {
-      let { amount } = curItem;
-      acc = acc + amount;
-      return acc;
-    }, 0);
-
-    return {
-      ...state,
-      total_item: cartTotalItem,
-    };
-  }
+  //* This is combined into single  action.type = "CART_ITEM_PRICE_TOTAL"
 
   // if (action.type === "CART_TOTAL_ITEM") {
+  //   let cartTotalItem = state.cart.reduce((acc, curItem) => {
+  //     let { amount } = curItem;
+  //     acc = acc + amount;
+  //     return acc;
+  //   }, 0);
+
+  //   return {
+  //     ...state,
+  //     total_item: cartTotalItem,
+  //   };
+  // }
+
+  // if (action.type === "CART_TOTAL_PRICE") {
   //   let cartTotalPrice = state.cart.reduce((acc, curItem) => {
   //     let { amount, price } = curItem;
   //     acc = acc + amount * price;
-  //     console.log("🚀 ~ cartTotalPrice ~ acc:", acc)
   //     return acc;
   //   }, 0);
 
@@ -113,6 +114,29 @@ const cartReducer = (state, action) => {
   //     total_price: cartTotalPrice,
   //   };
   // }
+
+  //* "CART_TOTAL_ITEM" and "CART_TOTAL_PRICE" combined
+  if (action.type === "CART_ITEM_PRICE_TOTAL") {
+    let { total_item, total_price } = state.cart.reduce(
+      (acc, curItem) => {
+        let { amount, price } = curItem;
+
+        acc.total_item = acc.total_item + amount;
+        acc.total_price = acc.total_price + amount * price;
+
+        return acc;
+      },
+      {
+        total_item: 0,
+        total_price: 0,
+      }
+    );
+    return {
+      ...state,
+      total_item,
+      total_price,
+    };
+  }
 
   if (action.type === "REMOVE_ITEM") {
     let updatedCart = state.cart.filter((curItem) => {
@@ -131,6 +155,7 @@ const cartReducer = (state, action) => {
       cart: [],
     };
   }
+
   return state;
 };
 

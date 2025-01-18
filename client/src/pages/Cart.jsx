@@ -3,9 +3,10 @@ import { useCartContext } from "../context/cartContext";
 import CartItem from "../components/CartItem";
 import { Link } from "react-router-dom";
 import { Button } from "../styles/Button";
+import FormatPrice from "../helpers/FormatPrice";
 
 const Cart = () => {
-  const { cart, clearCart } = useCartContext();
+  const { cart, clearCart, total_price, shipping_fee } = useCartContext();
   // console.log("Cart", cart);
 
   if (cart.length === 0) {
@@ -44,6 +45,33 @@ const Cart = () => {
           <Button className="btn-clear" onClick={clearCart}>
             Clear Cart
           </Button>
+        </div>
+
+        <div className="order-total--amount">
+          <div className="order-total--subdata">
+            <div>
+              <p>Subtotal : </p>
+              <p>
+                <FormatPrice price={total_price} />
+              </p>
+            </div>
+
+            <div>
+              <p>Shipping Fee : </p>
+              <p>
+                <FormatPrice price={shipping_fee} />
+              </p>
+            </div>
+
+            <hr />
+
+            <div>
+              <p>Order Total : </p>
+              <p>
+                <FormatPrice price={total_price + shipping_fee} />
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </Wrapper>
