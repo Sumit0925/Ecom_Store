@@ -4,11 +4,15 @@ import styled from "styled-components";
 import { FiShoppingCart } from "react-icons/fi";
 import { CgMenu, CgClose } from "react-icons/cg";
 import { useCartContext } from "../context/cartContext";
+import { Button } from "../styles/Button";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
   const [menuIcon, setMenuIcon] = useState();
 
   const { total_item } = useCartContext();
+
+  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
 
   return (
     <Nav>
@@ -58,6 +62,31 @@ const Navbar = () => {
               Contact
             </NavLink>
           </li>
+
+          {isAuthenticated && <p>{user.name}</p>}
+
+          {isAuthenticated ? (
+            <li>
+              <Button
+                className="login-btnn"
+                onClick={() =>
+                  logout({ logoutParams: { returnTo: window.location.origin } })
+                }
+              >
+                Log Out
+              </Button>
+            </li>
+          ) : (
+            <li>
+              <Button
+                className="logout-btnn"
+                onClick={() => loginWithRedirect()}
+              >
+                Log In
+              </Button>
+            </li>
+          )}
+
           <li id="cart">
             <NavLink to="/cart" className="navbar-link cart-trolley--link">
               <FiShoppingCart className="cart-trolley" />
@@ -232,6 +261,12 @@ const Nav = styled.nav`
         font-size: 2.8rem;
       }
     }
+
+    .login-btnn,
+    .logout-btnn {
+      transition: none;
+    }
+
     .cart-trolley--link {
       position: relative;
       // padding-top: 1rem;

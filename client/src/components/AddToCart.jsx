@@ -5,11 +5,15 @@ import CartAmountToggle from "./CartAmountToggle";
 import { Link } from "react-router-dom";
 import { Button } from "../styles/Button";
 import { useCartContext } from "../context/cartContext";
+import { useAuth0 } from "@auth0/auth0-react";
+import { toast } from "react-toastify";
 
 const AddToCart = ({ product }) => {
   const { addToCart } = useCartContext();
   const { id, colors, stock } = product;
   const [color, setColor] = useState(colors[0]);
+
+  const { isAuthenticated } = useAuth0();
 
   const [amount, setAmount] = useState(1);
 
@@ -47,10 +51,26 @@ const AddToCart = ({ product }) => {
         setDecrease={setDecrease}
         setIncrease={setIncrease}
       />
-
-      <Link to={"/cart"} onClick={() => addToCart(id, color, amount, product)}>
-        <Button className="btn">Add to Cart</Button>
-      </Link>
+      {isAuthenticated ? (
+        <Link
+          to={"/cart"}
+          onClick={() => addToCart(id, color, amount, product)}
+        >
+          <Button className="btn">Add to Cart</Button>
+        </Link>
+      ) : (
+        <Button
+          className="btn"
+          onClick={() =>
+            toast.error("Login First", {
+              style: { fontSize: "1.7rem" },
+              className: "toast-mobile",
+            })
+          }
+        >
+          Add to Cart
+        </Button>
+      )}
     </Wrapper>
   );
 };
@@ -103,6 +123,12 @@ const Wrapper = styled.section`
     .amount-style {
       font-size: 2.4rem;
       color: ${({ theme }) => theme.colors.btn};
+    }
+  }
+
+  @media (max-width: ${({ theme }) => theme.media.mobile}) {
+    .toast-mobile {
+      width: 1px;
     }
   }
 `;

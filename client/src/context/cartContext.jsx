@@ -1,12 +1,13 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import reducer from "../reducer/cartReducer";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const CartContext = createContext();
 
 //* To Get Cart data from Local Storage
 const getLocalCartData = () => {
   let localCartData = localStorage.getItem("EcomCart");
-  if (localCartData.length == 0) {
+  if (!localCartData) {
     return [];
   } else {
     return JSON.parse(localCartData);
@@ -22,6 +23,7 @@ const initialState = {
 };
 
 const CartContextProvider = ({ children }) => {
+  const { isAuthenticated } = useAuth0();
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const addToCart = (id, color, amount, product) => {
@@ -55,7 +57,9 @@ const CartContextProvider = ({ children }) => {
     // dispatch({ type: "CART_TOTAL_ITEM" });
     // dispatch({ type: "CART_TOTAL_PRICE" });
     dispatch({ type: "CART_ITEM_PRICE_TOTAL" });
-    localStorage.setItem("EcomCart", JSON.stringify(state.cart));
+    if (isAuthenticated) {
+      localStorage.setItem("EcomCart", JSON.stringify(state.cart));
+    }
   }, [state.cart]);
 
   return (
