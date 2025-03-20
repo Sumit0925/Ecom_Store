@@ -20,7 +20,7 @@ const initialData = {
 
 //* Provider
 const AppProvider = ({ children }) => {
-  const API = "https://ecomapi-production-d362.up.railway.app/api/products";
+  const API = "https://ecomstoreapi-production.up.railway.app/api/products";
 
   const [state, dispatch] = useReducer(reducer, initialData);
 
