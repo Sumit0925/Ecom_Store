@@ -20,7 +20,8 @@ const initialData = {
 
 //* Provider
 const AppProvider = ({ children }) => {
-  const API = "https://ecomstoreapi-production.up.railway.app/api/products";
+  const backendApi = import.meta.env.VITE_APP_URI_API;
+  const API = `${backendApi}/api/products`;
 
   const [state, dispatch] = useReducer(reducer, initialData);
 
